@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Pigment &amp; Light</title>
+  <meta name="description" content="A personal oil paint color mixing studio: keep a paint inventory, sample colors from reference images, and get starting mix recipes.">
+  <meta name="theme-color" content="#F7F3EA">
+  <meta name="color-scheme" content="light">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Pigment &amp; Light">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="icon" href="icons/icon-192.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="app" id="app">
+    <header class="app-header">
+      <div class="brand">
+        <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+          <path d="M24 5C13 5 5 12.6 5 22.3c0 8.6 6.7 14.7 13.8 14.7 2.9 0 4.1-1.6 4.1-3.6 0-2.6-2-3.3-2-5.4 0-1.8 1.4-3 3.6-3h4.6C37.4 25 43 20.4 43 14.2 43 8.7 34.8 5 24 5Z" fill="#FBF8F1" stroke="currentColor" stroke-width="2"/>
+          <circle cx="15" cy="18" r="3.4" fill="#B2603F"/>
+          <circle cx="23" cy="12.5" r="3.4" fill="#C69A4A"/>
+          <circle cx="32.5" cy="13.5" r="3.4" fill="#354C87"/>
+          <circle cx="14.5" cy="27.5" r="3.4" fill="#5A7140"/>
+        </svg>
+        <div class="brand-text">
+          <span class="brand-title">Pigment &amp; Light</span>
+          <span class="brand-sub">Oil color mixing studio</span>
+        </div>
+      </div>
+
+      <nav class="tabs" aria-label="Main sections">
+        <a class="tab" href="#mixer" data-view="mixer">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3.5c-4.9 5.3-7 8.9-7 11.6A7 7 0 0 0 19 15c0-2.7-2.1-6.2-7-11.5Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M8.6 15.2a3.4 3.4 0 0 0 3.4 3.3" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+          <span>Color mixer</span>
+        </a>
+        <a class="tab" href="#inventory" data-view="inventory">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 4.5h7.5l3 3V18a1.5 1.5 0 0 1-1.5 1.5H8.5A1.5 1.5 0 0 1 7 18Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M10 4.5V2.8h3.5v1.7M7 12.5h10.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+          <span>My paints</span>
+        </a>
+        <a class="tab" href="#saved" data-view="saved">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6.5 3.8h11a1 1 0 0 1 1 1v15.4l-6.5-4.1-6.5 4.1V4.8a1 1 0 0 1 1-1Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+          <span>Saved mixes</span>
+        </a>
+      </nav>
+
+      <button type="button" class="btn btn-ghost btn-about" id="about-btn" aria-haspopup="dialog">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 11v5.5M12 7.6v.1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <span>About &amp; help</span>
+      </button>
+    </header>
+
+    <main id="main" class="main" tabindex="-1">
+      <!-- ============ COLOR MIXER ============ -->
+      <section class="view" id="view-mixer" data-view="mixer" aria-labelledby="mixer-heading">
+        <div class="view-head">
+          <h1 id="mixer-heading" tabindex="-1">Color mixer</h1>
+          <p class="lede">Sample a color from a reference image or choose one directly, then get a starting recipe from the paints in your inventory.</p>
+        </div>
+
+        <div class="mixer-grid">
+          <div class="mixer-col mixer-col-image">
+            <section class="card" aria-labelledby="ref-heading">
+              <div class="card-head">
+                <h2 id="ref-heading">Reference image</h2>
+              </div>
+
+              <input type="file" id="image-input" class="visually-hidden" accept="image/*" tabindex="-1" aria-hidden="true">
+
+              <div class="dropzone" id="dropzone">
+                <button type="button" class="dropzone-btn" id="upload-btn">
+                  <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><rect x="6" y="10" width="36" height="28" rx="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17" cy="20" r="3.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="m8 34 10-9 7 6 6-5 10 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+                  <span class="dz-title">Upload a reference image</span>
+                  <span class="dz-sub">Choose from your photo library, take a photo, or drop an image file here.</span>
+                </button>
+              </div>
+
+              <div class="viewer" id="viewer" hidden>
+                <div class="canvas-stage">
+                  <div class="canvas-wrap" id="canvas-wrap">
+                    <canvas id="ref-canvas" tabindex="0" role="application" aria-roledescription="color sampler"
+                      aria-label="Reference image. Tap, click, or drag to sample a color. With keyboard focus, use the arrow keys to move the sample point; hold Shift for larger steps."
+                      aria-describedby="viewer-hint"></canvas>
+                    <div class="sample-marker" id="sample-marker" hidden aria-hidden="true">
+                      <span class="sample-bubble" id="sample-bubble"></span>
+                    </div>
+                  </div>
+                </div>
+                <p class="hint" id="viewer-hint">Tap or drag across the image to sample. The color is averaged over a small area to smooth out canvas texture and stray pixels.</p>
+                <div class="viewer-controls">
+                  <fieldset class="segmented">
+                    <legend>Sample area</legend>
+                    <div class="segmented-options">
+                      <label><input type="radio" name="sample-size" value="small"><span>Small</span></label>
+                      <label><input type="radio" name="sample-size" value="medium"><span>Medium</span></label>
+                      <label><input type="radio" name="sample-size" value="large"><span>Large</span></label>
+                    </div>
+                  </fieldset>
+                  <div class="viewer-buttons">
+                    <button type="button" class="btn btn-secondary" id="change-image-btn">Change image</button>
+                    <button type="button" class="btn btn-ghost" id="clear-image-btn">Remove image</button>
+                  </div>
+                </div>
+              </div>
+              <p class="fine-print">Images stay on this device and are not saved or uploaded. Photo color depends on your camera, lighting, and screen.</p>
+            </section>
+          </div>
+
+          <div class="mixer-col mixer-col-result">
+            <section class="card" aria-labelledby="target-heading">
+              <div class="card-head">
+                <h2 id="target-heading">Target color</h2>
+                <span class="source-tag" id="target-source">Color picker</span>
+              </div>
+
+              <div class="compare">
+                <figure class="compare-item">
+                  <div class="swatch-lg" id="target-swatch" role="img" aria-label="Target color swatch"></div>
+                  <figcaption>Target</figcaption>
+                </figure>
+                <figure class="compare-item">
+                  <div class="swatch-lg swatch-estimate" id="estimate-swatch" role="img" aria-label="Estimated mix swatch"></div>
+                  <figcaption>Estimated mix <span class="muted">(approximate)</span></figcaption>
+                </figure>
+              </div>
+
+              <dl class="color-values">
+                <div><dt>HEX</dt><dd id="target-hex">—</dd></div>
+                <div><dt>RGB</dt><dd id="target-rgb">—</dd></div>
+              </dl>
+
+              <div class="delta" id="delta-box">
+                <p class="delta-label">Approximate color difference <abbr title="CIEDE2000, a standard measure of color difference">ΔE2000</abbr></p>
+                <p class="delta-value"><strong id="delta-value">—</strong> <span id="delta-desc"></span></p>
+                <p class="fine-print">Compares the target with the estimated mix on screen. Lower is closer; under about 2 is hard to tell apart. It does not predict your real paint.</p>
+              </div>
+
+              <div class="picker-row">
+                <label class="picker-label" for="color-picker">Choose a color directly</label>
+                <div class="picker-controls">
+                  <input type="color" id="color-picker" class="color-input" value="#B08463">
+                  <label class="visually-hidden" for="hex-input">HEX value</label>
+                  <input type="text" id="hex-input" class="text-input hex-input" inputmode="text" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="7" placeholder="#B08463" aria-describedby="hex-help">
+                </div>
+                <p class="fine-print" id="hex-help">Type a 6-digit HEX value and press Enter, or use the color picker.</p>
+              </div>
+            </section>
+
+            <section class="card recipe-card" aria-labelledby="recipe-heading">
+              <div class="card-head">
+                <h2 id="recipe-heading">Starting recipe</h2>
+                <span class="badge badge-terra">Starting estimate</span>
+              </div>
+
+              <div class="recipe-settings">
+                <div class="field">
+                  <label for="batch-input">Test batch size</label>
+                  <div class="input-suffix">
+                    <input type="number" id="batch-input" class="text-input" min="0.1" max="2000" step="0.1" inputmode="decimal" value="2">
+                    <span aria-hidden="true">g</span>
+                  </div>
+                  <div class="chips" role="group" aria-label="Quick batch sizes">
+                    <button type="button" class="chip" data-batch="2">2 g</button>
+                    <button type="button" class="chip" data-batch="5">5 g</button>
+                    <button type="button" class="chip" data-batch="10">10 g</button>
+                    <button type="button" class="chip" data-batch="25">25 g</button>
+                  </div>
+                </div>
+                <div class="field">
+                  <label for="max-paints">Paints per recipe</label>
+                  <select id="max-paints" class="text-input">
+                    <option value="1">Up to 1 paint</option>
+                    <option value="2">Up to 2 paints</option>
+                    <option value="3">Up to 3 paints</option>
+                  </select>
+                </div>
+              </div>
+
+              <div id="recipe-body"></div>
+
+              <div class="alternatives" id="alternatives" hidden>
+                <h3 class="subhead">Recipe options</h3>
+                <div class="alt-list" id="alt-list" role="group" aria-label="Choose a recipe"></div>
+              </div>
+
+              <div class="actions">
+                <button type="button" class="btn btn-primary" id="save-mix-btn">
+                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6.5 3.8h11a1 1 0 0 1 1 1v15.4l-6.5-4.1-6.5 4.1V4.8a1 1 0 0 1 1-1Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+                  Save mix
+                </button>
+                <button type="button" class="btn btn-secondary" id="print-mix-btn">
+                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 8V3.8h10V8M7 16.5H5a1.5 1.5 0 0 1-1.5-1.5V9.5A1.5 1.5 0 0 1 5 8h14a1.5 1.5 0 0 1 1.5 1.5V15a1.5 1.5 0 0 1-1.5 1.5h-2M7 13.5h10v6.7H7Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+                  Print mixing card
+                </button>
+              </div>
+
+              <div class="honesty">
+                <p><strong>This is a starting estimate, not a guaranteed match.</strong> Oil paint mixes subtractively, and real results depend on pigment concentration, opacity, tinting strength, brand, medium, surface, and lighting. The estimate is calculated only from the swatch colors you set in your inventory.</p>
+                <details>
+                  <summary>How the estimate works</summary>
+                  <p>Each paint's swatch is treated as a reflectance color and mixed with a simplified Kubelka–Munk model, a common approximation of subtractive mixing. The app tries every one-, two-, and three-paint combination from your inventory and suggests the closest, preferring fewer paints when the difference is small.</p>
+                  <p>Pigment codes are shown for reference only. Two paints with the same code can mix differently, so the codes are not used to predict behavior. Percentages are by weight; dense pigments such as cadmiums and earths can make weight and volume differ.</p>
+                  <p>To improve estimates, paint out each tube next to white, adjust its swatch in <a href="#inventory">My paints</a>, and set a relative tinting strength for very strong or weak paints. Always mix a small test, compare it under your studio light, and adjust by eye.</p>
+                </details>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ INVENTORY ============ -->
+      <section class="view" id="view-inventory" data-view="inventory" aria-labelledby="inventory-heading" hidden>
+        <div class="view-head view-head-row">
+          <div>
+            <h1 id="inventory-heading" tabindex="-1">My paint inventory</h1>
+            <p class="lede">The mixer uses only the paints listed here. <span id="paint-count"></span></p>
+          </div>
+          <button type="button" class="btn btn-primary" id="add-paint-btn">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            Add paint
+          </button>
+        </div>
+
+        <div class="notice notice-sample" id="sample-notice" role="note" hidden>
+          <div>
+            <p class="notice-title">Sample palette — please replace with your own tubes</p>
+            <p id="sample-notice-text">These starter paints are examples so you can try the mixer right away. Their swatches are approximate. Edit each one to match a tube you own, adjust the swatch to a paint-out of your actual paint, and delete any you don't have.</p>
+          </div>
+          <button type="button" class="btn btn-secondary" id="remove-samples-btn">Remove sample paints</button>
+        </div>
+
+        <ul class="paint-grid" id="paint-list"></ul>
+        <div class="empty-state" id="paint-empty" hidden>
+          <p class="empty-title">No paints yet</p>
+          <p>Add the tubes you own so the mixer can build recipes from them.</p>
+          <div class="empty-actions">
+            <button type="button" class="btn btn-primary" data-action="add-paint">Add your first paint</button>
+            <button type="button" class="btn btn-secondary" data-action="add-samples">Load sample palette</button>
+          </div>
+        </div>
+
+        <section class="card data-card" aria-labelledby="data-heading-inv">
+          <h2 id="data-heading-inv">Backup, export &amp; restore</h2>
+          <p class="device-note"><strong>Your data is saved only in this browser on this device.</strong> It isn't synced or sent anywhere. Clearing website data, switching browsers, or using another device will not show it. On iPhone, a Home Screen app keeps its own storage, separate from Safari. Download a backup regularly and use Restore to move your data.</p>
+          <div class="data-actions">
+            <button type="button" class="btn btn-secondary" data-action="export-csv">Export paints (CSV)</button>
+            <button type="button" class="btn btn-secondary" data-action="backup-json">Download full backup (JSON)</button>
+            <button type="button" class="btn btn-secondary" data-action="restore-json">Restore from backup</button>
+            <button type="button" class="btn btn-ghost" data-action="add-samples">Add sample palette</button>
+          </div>
+          <p class="fine-print">The CSV opens in spreadsheet apps. The JSON backup contains your paints and saved mixes and can be restored here.</p>
+        </section>
+      </section>
+
+      <!-- ============ SAVED MIXES ============ -->
+      <section class="view" id="view-saved" data-view="saved" aria-labelledby="saved-heading" hidden>
+        <div class="view-head">
+          <h1 id="saved-heading" tabindex="-1">Saved mixes</h1>
+          <p class="lede">Your saved targets and starting recipes. <span id="mix-count"></span></p>
+        </div>
+
+        <ul class="mix-list" id="mix-list"></ul>
+        <div class="empty-state" id="mix-empty" hidden>
+          <p class="empty-title">No saved mixes yet</p>
+          <p>Choose a target color in the mixer, then tap <em>Save mix</em> to keep the recipe here.</p>
+          <div class="empty-actions">
+            <a class="btn btn-primary" href="#mixer">Go to the color mixer</a>
+          </div>
+        </div>
+
+        <section class="card data-card" aria-labelledby="data-heading-saved">
+          <h2 id="data-heading-saved">Keep your mixes safe</h2>
+          <p class="device-note"><strong>Saved mixes live only in this browser on this device.</strong> Download a backup to keep a copy or move them to another device or browser.</p>
+          <div class="data-actions">
+            <button type="button" class="btn btn-secondary" data-action="backup-json">Download full backup (JSON)</button>
+            <button type="button" class="btn btn-secondary" data-action="restore-json">Restore from backup</button>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <input type="file" id="restore-input" class="visually-hidden" accept="application/json,.json" tabindex="-1" aria-hidden="true">
+
+  <!-- Paint editor -->
+  <dialog class="dialog" id="paint-dialog" aria-labelledby="paint-dialog-title">
+    <form id="paint-form" class="dialog-form" novalidate>
+      <div class="dialog-head">
+        <h2 id="paint-dialog-title">Add paint</h2>
+        <button type="button" class="icon-btn" data-close aria-label="Close">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 6 12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <div class="dialog-body">
+        <div class="form-grid">
+          <div class="field">
+            <label for="pf-brand">Brand <span class="req" aria-hidden="true">*</span></label>
+            <input id="pf-brand" name="brand" class="text-input" required maxlength="80" autocomplete="off" placeholder="e.g. Gamblin">
+          </div>
+          <div class="field">
+            <label for="pf-name">Paint name <span class="req" aria-hidden="true">*</span></label>
+            <input id="pf-name" name="name" class="text-input" required maxlength="100" autocomplete="off" placeholder="e.g. Yellow Ochre">
+          </div>
+          <div class="field">
+            <label for="pf-pigments">Pigment code(s)</label>
+            <input id="pf-pigments" name="pigments" class="text-input" maxlength="80" autocomplete="off" autocapitalize="characters" placeholder="e.g. PY43 or PG7 / PY110">
+          </div>
+          <div class="field">
+            <label for="pf-tube">Tube amount</label>
+            <input id="pf-tube" name="tube" class="text-input" maxlength="40" autocomplete="off" placeholder="e.g. 37 ml, half full">
+          </div>
+          <div class="field field-wide">
+            <label for="pf-notes">Ingredients or notes</label>
+            <textarea id="pf-notes" name="notes" class="text-input" rows="3" maxlength="600" placeholder="e.g. Linseed oil, semi-opaque, strong tinter"></textarea>
+          </div>
+          <div class="field field-wide">
+            <span class="label" id="pf-swatch-label">Color swatch <span class="req" aria-hidden="true">*</span></span>
+            <div class="swatch-editor" role="group" aria-labelledby="pf-swatch-label">
+              <input type="color" id="pf-color" class="color-input color-input-lg" aria-label="Swatch color picker">
+              <div class="swatch-editor-fields">
+                <label for="pf-hex" class="visually-hidden">Swatch HEX value</label>
+                <input id="pf-hex" name="hex" class="text-input hex-input" required maxlength="7" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="#C69A4A" aria-describedby="pf-hex-help">
+                <button type="button" class="btn btn-ghost btn-sm" id="pf-use-target">Use current target color</button>
+              </div>
+            </div>
+            <p class="fine-print" id="pf-hex-help">Match this to a paint-out of your actual paint, ideally photographed in daylight. "Use current target color" copies the color sampled in the mixer, which is handy for photographing a swatch card.</p>
+          </div>
+          <div class="field">
+            <label for="pf-strength">Relative tinting strength</label>
+            <input id="pf-strength" name="strength" type="number" class="text-input" min="0.1" max="10" step="0.1" inputmode="decimal" aria-describedby="pf-strength-help">
+            <p class="fine-print" id="pf-strength-help">Optional. 1 = average. Use about 2–4 for very strong tinters, 0.5 for weak ones.</p>
+          </div>
+          <div class="field field-checks">
+            <label class="check"><input type="checkbox" id="pf-available" name="available"> <span>Use in mixer recipes</span></label>
+            <label class="check"><input type="checkbox" id="pf-sample" name="sample"> <span>Sample entry (not yet checked against my tube)</span></label>
+          </div>
+        </div>
+        <p class="form-error" id="paint-form-error" role="alert" hidden></p>
+      </div>
+      <div class="dialog-foot">
+        <button type="button" class="btn btn-danger-ghost" id="pf-delete" hidden>Delete paint</button>
+        <span class="spacer"></span>
+        <button type="button" class="btn btn-ghost" data-close>Cancel</button>
+        <button type="submit" class="btn btn-primary">Save paint</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Save mix -->
+  <dialog class="dialog" id="mix-dialog" aria-labelledby="mix-dialog-title">
+    <form id="mix-form" class="dialog-form" novalidate>
+      <div class="dialog-head">
+        <h2 id="mix-dialog-title">Save mix</h2>
+        <button type="button" class="icon-btn" data-close aria-label="Close">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 6 12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <div class="dialog-body">
+        <div class="mix-dialog-preview" id="mix-dialog-preview"></div>
+        <div class="field">
+          <label for="mf-name">Mix name</label>
+          <input id="mf-name" name="name" class="text-input" maxlength="100" autocomplete="off" required>
+        </div>
+        <div class="field">
+          <label for="mf-notes">Notes</label>
+          <textarea id="mf-notes" name="notes" class="text-input" rows="4" maxlength="1500" placeholder="e.g. Shadow side of the pear, morning light"></textarea>
+        </div>
+        <p class="form-error" id="mix-form-error" role="alert" hidden></p>
+      </div>
+      <div class="dialog-foot">
+        <span class="spacer"></span>
+        <button type="button" class="btn btn-ghost" data-close>Cancel</button>
+        <button type="submit" class="btn btn-primary" id="mf-submit">Save mix</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- About -->
+  <dialog class="dialog dialog-wide" id="about-dialog" aria-labelledby="about-title">
+    <div class="dialog-form">
+      <div class="dialog-head">
+        <h2 id="about-title">About Pigment &amp; Light</h2>
+        <button type="button" class="icon-btn" data-close aria-label="Close">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 6 12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <div class="dialog-body prose">
+        <p>A personal studio tool for keeping track of your oil paints, sampling colors from reference images, and getting a measurable starting recipe from the tubes you own.</p>
+
+        <h3>What the recipe means</h3>
+        <p>Recipes are <strong>starting estimates</strong>. They come from the swatch colors you enter and a simplified model of subtractive mixing. Real oil paint depends on pigment concentration, opacity, tinting strength, brand, medium, surface, and lighting, and a photo or screen adds its own color shifts. Pigment codes are for your reference; they don't predict exactly how a paint mixes. Weigh out a small test batch, compare it with your reference under studio light, adjust by eye, and write down what worked on the mixing card.</p>
+
+        <h3>Your data</h3>
+        <p>Everything is stored in this browser on this device, with no account and no server. Your reference images are never uploaded or saved. Use <em>Download full backup</em> on the My paints or Saved mixes screen to keep a copy, and <em>Restore from backup</em> to load it on another device or browser.</p>
+
+        <h3>Add to your iPhone Home Screen</h3>
+        <ol>
+          <li>Open this page in Safari.</li>
+          <li>Tap the Share button, then <em>Add to Home Screen</em>.</li>
+          <li>Tap <em>Add</em>. Pigment &amp; Light opens full screen, like an app, and works offline.</li>
+        </ol>
+        <p>The Home Screen app keeps its own storage, separate from Safari. To move paints you entered in Safari, download a backup in Safari and restore it in the Home Screen app.</p>
+
+        <h3>Printing mixing cards</h3>
+        <p>Use <em>Print mixing card</em> in the mixer or on a saved mix. If background colors don't print, turn on "Background graphics" in your browser's print options. On iPhone you can also choose <em>Save to Files</em> from the print preview's share menu to keep a PDF.</p>
+      </div>
+      <div class="dialog-foot">
+        <span class="spacer"></span>
+        <button type="button" class="btn btn-primary" data-close>Done</button>
+      </div>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+  <div class="visually-hidden" id="sr-status" role="status" aria-live="polite" aria-atomic="true"></div>
+  <div id="print-area" class="print-area"></div>
+
+  <script src="js/color.js"></script>
+  <script src="js/mixer.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

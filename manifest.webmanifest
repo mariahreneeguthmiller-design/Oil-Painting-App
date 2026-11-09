@@ -1,0 +1,17 @@
+{
+  "name": "Pigment & Light",
+  "short_name": "Pigment & Light",
+  "description": "A personal oil paint color mixing studio: paint inventory, color sampling, and starting mix recipes.",
+  "start_url": "./index.html#mixer",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#F7F3EA",
+  "theme_color": "#F7F3EA",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}
